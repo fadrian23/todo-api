@@ -1,3 +1,4 @@
+using Application;
 using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Filters;
 
 namespace Todo
 {
@@ -28,8 +30,9 @@ namespace Todo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddData(Configuration);
+            services.AddApplication();
 
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>());
             services.AddSwaggerGen(
                 c =>
                 {
