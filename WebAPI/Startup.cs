@@ -1,5 +1,6 @@
 using Application;
 using Data;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,7 +33,10 @@ namespace Todo
             services.AddData(Configuration);
             services.AddApplication();
 
-            services.AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>());
+            services
+                .AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>())
+                .AddFluentValidation();
+
             services.AddSwaggerGen(
                 c =>
                 {
