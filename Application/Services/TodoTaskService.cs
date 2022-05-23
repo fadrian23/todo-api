@@ -37,7 +37,7 @@ namespace Application.Services
             return todoTaskDTO;
         }
 
-        public async Task DeleteTodoItem(int id)
+        public async Task DeleteTodoTask(int id)
         {
             var todoTask = _context.TodoTasks.FirstOrDefault(x => x.Id == id);
 

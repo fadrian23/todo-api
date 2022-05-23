@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await _todoTaskService.DeleteTodoItem(id);
+            await _todoTaskService.DeleteTodoTask(id);
 
             return NoContent();
         }
