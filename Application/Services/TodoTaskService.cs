@@ -90,6 +90,27 @@ namespace Application.Services
             return todoTaskDTO;
         }
 
+        public async Task<TodoTaskDTO> SetTodoTaskPercentComplete(
+            int id,
+            SetPercentTodoTaskDTO setPercentTodoTaskDTO
+        )
+        {
+            var todoTask = _context.TodoTasks.FirstOrDefault(x => x.Id == id);
+
+            if (todoTask == null)
+            {
+                throw new NotFoundException($"TodoTask of id: {id} was not found");
+            }
+
+            todoTask.CompletePercent = setPercentTodoTaskDTO.CompletePercent;
+
+            await _context.SaveChangesAsync();
+
+            var todoTaskDTO = _mapper.Map<TodoTaskDTO>(todoTask);
+
+            return todoTaskDTO;
+        }
+
         public async Task<TodoTaskDTO> UpdateTodoTask(UpdateTodoTaskDTO updateTodoTaskDTO, int id)
         {
             var todoTask = await _context.TodoTasks.FirstOrDefaultAsync(x => x.Id == id);

@@ -15,5 +15,9 @@ namespace Application.Interfaces
         Task<TodoTaskDTO> UpdateTodoTask(UpdateTodoTaskDTO updateTodoTaskDTO, int id);
         Task DeleteTodoItem(int id);
         Task<TodoTaskDTO> MarkTaskAsDone(int id);
+        Task<TodoTaskDTO> SetTodoTaskPercentComplete(
+            int id,
+            SetPercentTodoTaskDTO setPercentTodoTaskDTO
+        );
     }
 }

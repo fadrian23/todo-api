@@ -64,5 +64,16 @@ namespace WebAPI.Controllers
 
             return NoContent();
         }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<TodoTaskDTO>> SetPercentComplete(
+            int id,
+            SetPercentTodoTaskDTO setPercentTodoTaskDTO
+        )
+        {
+            await _todoTaskService.SetTodoTaskPercentComplete(id, setPercentTodoTaskDTO);
+
+            return NoContent();
+        }
     }
 }
