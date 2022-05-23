@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Data.Persistence.Configurations;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,10 @@ namespace Data.Persistence
         { }
 
         public DbSet<TodoTask> TodoTasks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new TodoTaskConfiguration());
+        }
     }
 }
