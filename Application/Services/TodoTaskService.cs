@@ -1,5 +1,6 @@
 ﻿using Application.DTOs.TodoTask;
 using Application.Exceptions;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Data.Persistence;
@@ -127,6 +128,29 @@ namespace Application.Services
             var taskDTO = _mapper.Map<TodoTaskDTO>(todoTask);
 
             return taskDTO;
+        }
+
+        public async Task<IEnumerable<TodoTaskDTO>> GetIncomingTodoTasks(TimePeriod timePeriod)
+        {
+            var endDate = TimeHelper.LastTicksOfTimePeriod.GetValueOrDefault(timePeriod);
+
+            var startDate =
+                timePeriod == TimePeriod.Tomorrow
+                    ? DateTime.Now.Date.AddDays(1)
+                    : DateTime.Now.Date;
+
+            var todoTasks = await _context.TodoTasks
+                .Where(x => x.ExpirationDate >= startDate && x.ExpirationDate <= endDate)
+                .ToListAsync();
+
+            if (todoTasks == null)
+            {
+                throw new NotFoundException("No TodoTask was found for given time period");
+            }
+
+            var todoTaskDTOs = _mapper.Map<IEnumerable<TodoTaskDTO>>(todoTasks);
+
+            return todoTaskDTOs;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.TodoTask;
+using Application.Helpers;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -74,6 +75,14 @@ namespace WebAPI.Controllers
             await _todoTaskService.SetTodoTaskPercentComplete(id, setPercentTodoTaskDTO);
 
             return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TodoTaskDTO>>> GetIncoming(TimePeriod timePeriod)
+        {
+            var todoTaskDTOs = await _todoTaskService.GetIncomingTodoTasks(timePeriod);
+
+            return Ok(todoTaskDTOs);
         }
     }
 }

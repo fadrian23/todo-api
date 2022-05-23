@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.TodoTask;
+using Application.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,6 @@ namespace Application.Interfaces
             int id,
             SetPercentTodoTaskDTO setPercentTodoTaskDTO
         );
+        Task<IEnumerable<TodoTaskDTO>> GetIncomingTodoTasks(TimePeriod timePeriod);
     }
 }
